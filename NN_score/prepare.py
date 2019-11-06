@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from CGRtools.files import SDFwrite
 from pickle import load
-import random
 
 
 global_result = set()
@@ -9,40 +8,33 @@ pairs = set()
 molecules = {}
 NUMBER = set()
 SIG = set()
+train = set()
+test = set()
+validation = set()
 
 
-def get_set(path, number, n):
+def get_set(path, number):
     for num in range(number):
         tuples = load(open('{}/{}.pickle'.format(path, num), 'rb'))
-        local_result = set()
-        for _ in range(1000):
-            if len(local_result) == n:
-                break
-            ml_random = random.choice(tuples)
-            a = ml_random[0]
-            b = ml_random[1]
+        for take_ml in tuples:
+            a = take_ml[0]
+            b = take_ml[1]
             sig_a = bytes(a)
             sig_b = bytes(b)
-            if ml_random in local_result:
+            if (sig_b, sig_a) in pairs or (sig_a, sig_b) in pairs:
                 continue
-            if (sig_b, sig_a) in pairs:
-                continue
-            TUPLE = (sig_a, sig_b, ml_random[2], ml_random[3])
-            global_result.add(TUPLE)
+            TUPLE = (sig_a, sig_b, take_ml[2], take_ml[3])
             pairs.add((sig_a, sig_b))
-            local_result.add(ml_random)
-            if sig_a not in SIG:
-                molecules[sig_a] = a
-            if sig_b not in SIG:
-                molecules[sig_b] = b
-            SIG.update(sig_a, sig_b)
-            if len(molecules) == 10:
-                for numeric in range(20):
-                    if numeric in NUMBER:
-                        continue
-                    NUMBER.add(numeric)
-                    with SDFwrite('{}.molecules_pickle.sdf'.format(numeric)) as f:
-                        for m in molecules.values():
-                            f.write(m)
-                    break
-                molecules.clear()
+            check_a = ([t[0] for t in global_result])
+            check_b = ([t[1] for t in global_result])
+            if sig_a in check_a or sig_b in check_b or sig_a in check_b or sig_b in check_a:
+                train.add(take_ml)
+            else:
+                if len(test) <= len(validation):
+                    test.add(take_ml)
+                else:
+                    validation.add(take_ml)
+            global_result.add(TUPLE)
+
+for number in range(4, 7):
+    get_set('/home/nadia/data/True_pairs_new', number)
