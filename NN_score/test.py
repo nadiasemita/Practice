@@ -5,15 +5,13 @@ from CGRtools.files import SDFread
 
 
 global_result = set()
-pairs = set()
-NUMBER, NUMBER2, NUMBER3 = set(), set(), set()
-SIG = set()
-train = set()
-test = set()
-validation = set()
+pairs, SIG = set(), set()
+NUMBER, NUMBER2, NUMBER3, NUMBER4 = set(), set(), set(), set()
+train, test, validation = set(), set(), set()
+
 
 end = False
-for numeric in range(43000, 43050):
+for numeric in range(0, 43492):
     tuples = load(open('/home/nadia/data/True_pairs_new/{}.pickle'.format(numeric), 'rb'))
     for take_ml in tuples:
         a = take_ml[0]
@@ -36,7 +34,15 @@ for numeric in range(43000, 43050):
             else:
                 test.add(take_ml)
         global_result.add(TUPLE)
-        if numeric == 43050:
+        if len(train) == 20000:
+            number = max(NUMBER4)
+            NUMBER4.add(number)
+            with open('/home/nadia/data/train/{}train_copy.pickle'.format(number)) as f:
+                for u, y in enumerate(train):
+                    if 8000 < u:
+                        dump(u, f)
+                        del u
+        if numeric == 43491 and take_ml == 1000:
             end = True
         if len(validation) == 1000 or end:
             number = max(NUMBER)+1
