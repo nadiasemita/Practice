@@ -34,7 +34,7 @@ for numeric in range(0, 43492):
             else:
                 test.add(take_ml)
         global_result.add(TUPLE)
-        if len(train) == 20000:
+        if len(train) == 16000:
             number = max(NUMBER3)+1
             NUMBER3.add(number)
             with open('/home/nadia/data/train/{}train.pickle'.format(number)) as f:
