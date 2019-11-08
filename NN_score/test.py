@@ -6,7 +6,7 @@ from CGRtools.files import SDFread
 
 global_result = set()
 pairs, SIG = set(), set()
-NUMBER, NUMBER2, NUMBER3, NUMBER4 = set(), set(), set(), set()
+NUMBER, NUMBER2, NUMBER3 = set(), set(), set()
 train, test, validation = set(), set(), set()
 
 
@@ -35,11 +35,10 @@ for numeric in range(0, 43492):
                 test.add(take_ml)
         global_result.add(TUPLE)
         if len(train) == 20000:
-            number = max(NUMBER4)
-            NUMBER4.add(number)
-            with open('/home/nadia/data/train/{}train_copy.pickle'.format(number)) as f:
-                for u, y in enumerate(train):
-                    if 8000 < u:
+            number = max(NUMBER3)+1
+            NUMBER3.add(number)
+            with open('/home/nadia/data/train/{}train.pickle'.format(number)) as f:
+                for u in train[7999:]:
                         dump(u, f)
                         del u
         if numeric == 43491 and take_ml == 1000:
@@ -50,18 +49,16 @@ for numeric in range(0, 43492):
             with open('/home/nadia/data/validation/{}validation.pickle'.format(number)) as f:
                 dump(validation, f)
             validation.clear()
-            number = max(NUMBER2)
+            number = max(NUMBER2)+1
             NUMBER2.add(number)
             with open('/home/nadia/data/test/{}test.pickle'.format(number)) as f:
                 dump(test, f)
             test.clear()
-            number = max(NUMBER3)
+            number = max(NUMBER3)+1
             NUMBER3.add(number)
             with open('/home/nadia/data/train/{}train.pickle'.format(number)) as f:
                 dump(train, f)
             train.clear()
-print(len(train))
-print(len(test))
-print(len(validation))
+
 
 
