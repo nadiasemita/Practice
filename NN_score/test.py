@@ -39,7 +39,7 @@ for numeric in range(0, 43492):
             with open('/home/nadia/data/train/{}train.pickle'.format(number)) as f:
                 dump(train[7999:], f)
                 del train[7999:]
-        if numeric == 43491 and take_ml == tuples[1000]:
+        if numeric == 43491 and take_ml == tuples[-1]:
             end = True
         if len(validation) == 1000 or end:
             number = max(NUMBER)+1
