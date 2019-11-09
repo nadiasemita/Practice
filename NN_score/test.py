@@ -34,14 +34,12 @@ for numeric in range(0, 43492):
             else:
                 test.add(take_ml)
         global_result.add(TUPLE)
-        if len(train) == 16000:
-            number = max(NUMBER3)+1
+        if len(train) == 16000: number = max(NUMBER3)+1
             NUMBER3.add(number)
             with open('/home/nadia/data/train/{}train.pickle'.format(number)) as f:
-                for u in train[7999:]:
-                        dump(u, f)
-                        del u
-        if numeric == 43491 and take_ml == 1000:
+                dump(train[7999:], f)
+                del train[7999:]
+        if numeric == 43491 and take_ml == tuples[1000]:
             end = True
         if len(validation) == 1000 or end:
             number = max(NUMBER)+1
