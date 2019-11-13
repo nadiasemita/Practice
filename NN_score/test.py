@@ -24,7 +24,7 @@ for numeric in range(0, 43492):
         pairs.add((sig_a, sig_b))
         check_a = ([t[0] for t in global_result])
         check_b = ([t[1] for t in global_result])
-        if sig_b in check_b or sig_b in check_a:
+        if (sig_b in check_b) or (sig_b in check_a) or (sig_a in check_a) or (sig_a in check_b):
             train.add(take_ml)
         else:
             if len(test)*8 > len(train):
@@ -36,7 +36,7 @@ for numeric in range(0, 43492):
         global_result.add(TUPLE)
         if len(train) == 16000:
             NUMBER3.add(max(NUMBER3)+1)
-            with open('/home/nadia/data/train/{}train_copy.pickle'.format(max(NUMBER3)+1)) as f:
+            with open('/home/nadia/data/train/{}train.pickle'.format(max(NUMBER3)+1)) as f:
                 dump(train[7999:], f)
         if numeric == 43491 and take_ml == tuples[-1]:
             end = True
