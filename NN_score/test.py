@@ -37,7 +37,8 @@ for numeric in range(0, 43492):
         if len(train) == 16000:
             NUMBER3.add(max(NUMBER3)+1)
             with open('/home/nadia/data/train/{}train.pickle'.format(max(NUMBER3)+1)) as f:
-                dump(train[7999:], f)
+                dump(train[8000:], f)
+            train = train[:8000]
         if numeric == 43491 and take_ml == tuples[-1]:
             end = True
         if len(validation) == 1000 or end:
@@ -45,7 +46,6 @@ for numeric in range(0, 43492):
             with open('/home/nadia/data/validation/{}validation.pickle'.format(max(NUMBER)+1)) as f:
                 dump(validation, f)
             validation.clear()
-
             NUMBER2.add(max(NUMBER2)+1)
             with open('/home/nadia/data/test/{}test.pickle'.format(max(NUMBER2)+1)) as f:
                 dump(test, f)
