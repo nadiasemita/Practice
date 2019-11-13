@@ -5,7 +5,7 @@ from CGRtools.files import SDFread
 
 
 global_result = set()
-pairs, SIG = set(), set()
+SIG = set()
 NUMBER, NUMBER2, NUMBER3 = set(), set(), set()
 train, test, validation = set(), set(), set()
 
@@ -18,14 +18,14 @@ for numeric in range(0, 43492):
         b = take_ml[1]
         sig_a = bytes(a)
         sig_b = bytes(b)
-        if (sig_b, sig_a) in pairs or (sig_a, sig_b) in pairs:
-            continue
         TUPLE = (sig_a, sig_b, take_ml[2], take_ml[3])
-        pairs.add((sig_a, sig_b))
         check_a = ([t[0] for t in global_result])
         check_b = ([t[1] for t in global_result])
         if (sig_b in check_b) or (sig_b in check_a) or (sig_a in check_a) or (sig_a in check_b):
-            train.add(take_ml)
+            if len(test) < len(validation):
+                test.add(take_ml)
+            else:
+                validation.add(take_ml)
         else:
             if len(test)*8 > len(train):
                 train.add(take_ml)
@@ -34,9 +34,9 @@ for numeric in range(0, 43492):
             else:
                 test.add(take_ml)
         global_result.add(TUPLE)
-        if len(train) == 16000:
+        if len(train) == 8000:
             NUMBER3.add(max(NUMBER3)+1)
-            train = train[:8000]
+            train.clear()
             print(len(NUMBER))
         if numeric == 43491 and take_ml == tuples[-1]:
             end = True
