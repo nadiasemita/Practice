@@ -19,6 +19,8 @@ for numeric in range(0, 43492):
         sig_a = bytes(a)
         sig_b = bytes(b)
         TUPLE = (sig_a, sig_b, take_ml[2], take_ml[3])
+        if TUPLE in global_result or (sig_b, sig_a, take_ml[2], take_ml[3]) in global_result:
+            continue
         check_a = ([t[0] for t in global_result])
         check_b = ([t[1] for t in global_result])
         if (sig_b in check_b) or (sig_b in check_a) or (sig_a in check_a) or (sig_a in check_b):
