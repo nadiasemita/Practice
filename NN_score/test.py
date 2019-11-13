@@ -22,10 +22,10 @@ for numeric in range(0, 43492):
         check_a = ([t[0] for t in global_result])
         check_b = ([t[1] for t in global_result])
         if (sig_b in check_b) or (sig_b in check_a) or (sig_a in check_a) or (sig_a in check_b):
-            if len(test) < len(validation):
-                test.add(take_ml)
-            else:
+            if len(validation) < len(test):
                 validation.add(take_ml)
+            else:
+                test.add(take_ml)
         else:
             if len(test)*8 > len(train):
                 train.add(take_ml)
@@ -34,19 +34,26 @@ for numeric in range(0, 43492):
             else:
                 test.add(take_ml)
         global_result.add(TUPLE)
-        if len(train) == 8000:
-            NUMBER3.add(max(NUMBER3)+1)
-            train.clear()
+        if len(validation) == 2000:
+            NUMBER.add(max(NUMBER) + 1)
+            validation = validation[:1000]
             print(len(NUMBER))
+            NUMBER2.add(max(NUMBER2) + 1)
+            test = test[:1000]
+            print(len(NUMBER2))
         if numeric == 43491 and take_ml == tuples[-1]:
             end = True
-        if len(validation) == 1000 or end:
-            NUMBER.add(max(NUMBER)+1)
-            validation.clear()
-            print(len(NUMBER2))
-            NUMBER2.add(max(NUMBER2)+1)
-            test.clear()
+        if len(train) == 8000 or end:
+            NUMBER3.add(max(NUMBER3)+1)
+            train.clear()
             print(len(NUMBER3))
+            NUMBER2.add(max(NUMBER2) + 1)
+            test.clear()
+            print(len(NUMBER2))
+            NUMBER.add(max(NUMBER) + 1)
+            validation.clear()
+            print(len(NUMBER))
+
 
 
 
