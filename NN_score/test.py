@@ -37,15 +37,18 @@ for numeric in range(0, 43492):
         if len(train) == 16000:
             NUMBER3.add(max(NUMBER3)+1)
             train = train[:8000]
+            print(len(NUMBER))
         if numeric == 43491 and take_ml == tuples[-1]:
             end = True
         if len(validation) == 1000 or end:
             NUMBER.add(max(NUMBER)+1)
             validation.clear()
+            print(len(NUMBER2))
             NUMBER2.add(max(NUMBER2)+1)
             test.clear()
-print(len(NUMBER))
-print(len(NUMBER2))
-print(len(NUMBER3))
+            print(len(NUMBER3))
+
+
+
 
 
