@@ -44,9 +44,7 @@ for numeric in range(0, 43492):
             test = test[:1000]
             print(len(NUMBER2))
         if numeric == 43491 and take_ml == tuples[-1]:
-            end = True
-        if len(train) == 8000 or end:
-            NUMBER3.add(max(NUMBER3)+1)
+            NUMBER3.add(max(NUMBER3) + 1)
             train.clear()
             print(len(NUMBER3))
             NUMBER2.add(max(NUMBER2) + 1)
@@ -55,6 +53,17 @@ for numeric in range(0, 43492):
             NUMBER.add(max(NUMBER) + 1)
             validation.clear()
             print(len(NUMBER))
+        if len(train) == 8000:
+            NUMBER3.add(max(NUMBER3)+1)
+            train.clear()
+            print(len(NUMBER3))
+            NUMBER2.add(max(NUMBER2) + 1)
+            test = test[1000:]
+            print(len(NUMBER2))
+            NUMBER.add(max(NUMBER) + 1)
+            validation = validation[1000:]
+            print(len(NUMBER))
+
 
 
 
