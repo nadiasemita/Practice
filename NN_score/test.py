@@ -9,13 +9,12 @@ sig_train, sig_test = set(), set()
 # logging.basicConfig(filename="ancient.log", level=logging.INFO)
 logger = logging.getLogger("my test")
 logger.setLevel(logging.INFO)
-fh = logging.FileHandler("ancient.log")
+fh = logging.FileHandler("new.log")
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 
-end = False
 for numeric in range(0, 43492):
     tuples = load(open('/home/nadia/data/True_pairs_new/{}.pickle'.format(numeric), 'rb'))  # открываю файл
     for take_ml in tuples:
@@ -27,8 +26,6 @@ for numeric in range(0, 43492):
         # проверяю, были ли такие же тюплы ранее или тюплы с помененными положениями А и Б
         if TUPLE in global_result or (sig_b, sig_a, take_ml[2], take_ml[3]) in global_result:
             continue
-        check_a = ([t[0] for t in global_result])
-        check_b = ([t[1] for t in global_result])
         # проверяю были ли такие же либо а, либо б ранее трайн, если были то добавляю также в трайн
         if (sig_a in sig_train) or (sig_b in sig_train):
             if (sig_a in sig_test) or (sig_b in sig_test):
