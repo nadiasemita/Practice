@@ -37,6 +37,5 @@ def get_set(path, number):
             global_result.add(TUPLE)
 
 
-
 for number in range(4, 7):
     get_set('/home/nadia/data/True_pairs_new', number)
