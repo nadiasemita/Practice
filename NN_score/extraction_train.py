@@ -9,13 +9,13 @@ sig_train = set()
 # logging.basicConfig(filename="ancient.log", level=logging.INFO)
 logger = logging.getLogger("my test")
 logger.setLevel(logging.INFO)
-fh = logging.FileHandler("train.log")
+fh = logging.FileHandler("train100.log")
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
-
-for numeric in range(0, 10000):
+logger.info(" Program start")
+for numeric in range(0, 50):
     tuples = load(open('/home/nadia/data/True_pairs_new/{}.pickle'.format(numeric), 'rb'))
     for take_ml in tuples:
         a = take_ml[0]
@@ -30,13 +30,13 @@ for numeric in range(0, 10000):
         global_result.add(TUPLE)
         if len(train) == 8000:
             NUMBER3.add(max(NUMBER3) + 1)
-            with open('/home/nadia/data/train3/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
+            with open('/home/nadia/data/train7/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
                 dump(train, f)
             train.clear()
             logger.info(f" train : {max(NUMBER3)*8000}")
 
 
-for numeric in range(10000, 43492):
+for numeric in range(50, 43492):
     tuples = load(open('/home/nadia/data/True_pairs_new/{}.pickle'.format(numeric), 'rb'))
     for take_ml in tuples:
         a = take_ml[0]
@@ -57,18 +57,18 @@ for numeric in range(10000, 43492):
         global_result.add(TUPLE)
         if len(validation) == 1000:
             NUMBER.add(max(NUMBER) + 1)
-            with open('/home/nadia/data/validation3/{}validation.pickle'.format(max(NUMBER)), 'wb') as f:
+            with open('/home/nadia/data/validation7/{}validation.pickle'.format(max(NUMBER)), 'wb') as f:
                 dump(validation, f)
             validation.clear()
             NUMBER2.add(max(NUMBER2) + 1)
-            with open('/home/nadia/data/test3/{}test.pickle'.format(max(NUMBER2)), 'wb') as f:
+            with open('/home/nadia/data/test7/{}test.pickle'.format(max(NUMBER2)), 'wb') as f:
                 dump(test, f)
             test.clear()
             logger.info(f" train : {max(NUMBER3)*8000},  test : {max(NUMBER2)*1000},"
                         f" validation : {max(NUMBER)*1000}")
         if len(train) == 8000:
             NUMBER3.add(max(NUMBER3) + 1)
-            with open('/home/nadia/data/train3/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
+            with open('/home/nadia/data/train7/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
                 dump(train, f)
             train.clear()
             logger.info(f" train : {max(NUMBER3)*8000},  test : {max(NUMBER2)*1000},"
@@ -77,11 +77,11 @@ for numeric in range(10000, 43492):
             NUMBER3.add(max(NUMBER3) + 1)
             NUMBER2.add(max(NUMBER2) + 1)
             NUMBER.add(max(NUMBER) + 1)
-            with open('/home/nadia/data/train3/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
+            with open('/home/nadia/data/train7/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
                 dump(train, f)
-            with open('/home/nadia/data/test3/{}test.pickle'.format(max(NUMBER2)), 'wb') as f:
+            with open('/home/nadia/data/test7/{}test.pickle'.format(max(NUMBER2)), 'wb') as f:
                 dump(test, f)
-            with open('/home/nadia/data/validation3/{}validation.pickle'.format(max(NUMBER)), 'wb') as f:
+            with open('/home/nadia/data/validation7/{}validation.pickle'.format(max(NUMBER)), 'wb') as f:
                 dump(validation, f)
             logger.info(f" train : {(max(NUMBER3)-1)*8000 + len(train)},  test : {(max(NUMBER2)-1)*1000 + len(test)},"
                         f" validation : {(max(NUMBER)-1)*1000 + len(validation)}")
