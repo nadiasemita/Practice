@@ -75,6 +75,9 @@ for numeric in range(100, 43492):
             train.clear()
             logger.info(f" train : {max(NUMBER3)*1000},  test : {max(NUMBER2)*1000},"
                         f" doubles : {max(NUMBER)*1000}")
+            d = sig_train.intersection(sig_test)
+            if d:
+                logger.info("Doubles appeared :", len(d))
         if numeric == 43491 and take_ml == tuples[-1]:
             NUMBER3.add(max(NUMBER3) + 1)
             NUMBER2.add(max(NUMBER2) + 1)
@@ -92,7 +95,8 @@ for numeric in range(100, 43492):
             doubles.clear()
 print('train true files:', max(NUMBER3), ' test true files:', max(NUMBER2),
       'doubles files:', max(NUMBER))
-print(isinstance(sig_test, sig_train))
+f = sig_train.intersection(sig_test)
+print('Doubles', len(f))
 with open('/home/nadia/work/sig_train', 'wb') as f:
     dump(sig_train, f)
 with open('/home/nadia/work/sig_test', 'wb') as f:
