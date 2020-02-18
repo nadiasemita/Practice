@@ -6,17 +6,17 @@ global_result = set()
 NUMBER, NUMBER2, NUMBER3 = {0}, {0}, {0}
 train, test, doubles = set(), set(), set()
 sig_train, sig_test = set(), set()
-# logging.basicConfig(filename="false_true.log", level=logging.INFO)
+# logging.basicConfig(filename="new.log", level=logging.INFO)
 logger = logging.getLogger("my test")
 logger.setLevel(logging.INFO)
-fh = logging.FileHandler("false_true.log")
+fh = logging.FileHandler("new.log")
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 logger.info(" Program start")
-for numeric in range(0, 100):
-    tuples = load(open('/home/nadia/data/True_pairs_new/{}.pickle'.format(numeric), 'rb'))
+for numeric in range(1268, 1278):
+    tuples = load(open('/home/nadia/adelia/False_pairs/{}.pickle'.format(numeric), 'rb'))
     for take_ml in tuples:
         a = take_ml[0]
         b = take_ml[1]
@@ -30,14 +30,14 @@ for numeric in range(0, 100):
         global_result.add(TUPLE)
         if len(train) == 1000:
             NUMBER3.add(max(NUMBER3) + 1)
-            with open('/home/nadia/work/train_true/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
+            with open('/home/nadia/new/train_false/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
                 dump(train, f)
             train.clear()
             logger.info(f" train : {max(NUMBER3)*1000}")
 
 
-for numeric in range(100, 43492):
-    tuples = load(open('/home/nadia/data/True_pairs_new/{}.pickle'.format(numeric), 'rb'))
+for numeric in range(1278, 13786):
+    tuples = load(open('/home/nadia/adelia/False_pairs/{}.pickle'.format(numeric), 'rb'))
     for take_ml in tuples:
         a = take_ml[0]
         b = take_ml[1]
@@ -58,19 +58,19 @@ for numeric in range(100, 43492):
         global_result.add(TUPLE)
         if len(doubles) == 1000:
             NUMBER.add(max(NUMBER) + 1)
-            with open('/home/nadia/work/doubles_true/{}doubles.pickle'.format(max(NUMBER)), 'wb') as f:
+            with open('/home/nadia/new/doubles_false/{}doubles.pickle'.format(max(NUMBER)), 'wb') as f:
                 dump(doubles, f)
             doubles.clear()
         if len(test) == 1000:
             NUMBER2.add(max(NUMBER2) + 1)
-            with open('/home/nadia/work/test_true/{}test.pickle'.format(max(NUMBER2)), 'wb') as f:
+            with open('/home/nadia/new/test_false/{}test.pickle'.format(max(NUMBER2)), 'wb') as f:
                 dump(test, f)
             test.clear()
             logger.info(f" train : {max(NUMBER3)*1000},  test : {max(NUMBER2)*1000},"
                         f" doubles : {max(NUMBER)*1000}")
         if len(train) == 1000:
             NUMBER3.add(max(NUMBER3) + 1)
-            with open('/home/nadia/work/train_true/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
+            with open('/home/nadia/new/train_false/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
                 dump(train, f)
             train.clear()
             logger.info(f" train : {max(NUMBER3)*1000},  test : {max(NUMBER2)*1000},"
@@ -78,26 +78,26 @@ for numeric in range(100, 43492):
             d = sig_train.intersection(sig_test)
             if d:
                 logger.info("Doubles appeared :", len(d))
-        if numeric == 43491 and take_ml == tuples[-1]:
+        if numeric == 13785 and take_ml == tuples[-1]:
             NUMBER3.add(max(NUMBER3) + 1)
             NUMBER2.add(max(NUMBER2) + 1)
             NUMBER.add(max(NUMBER) + 1)
-            with open('/home/nadia/work/train_true/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
+            with open('/home/nadia/new/train_false/{}train.pickle'.format(max(NUMBER3)), 'wb') as f:
                 dump(train, f)
-            with open('/home/nadia/work/test_true/{}test.pickle'.format(max(NUMBER2)), 'wb') as f:
+            with open('/home/nadia/new/test_false/{}test.pickle'.format(max(NUMBER2)), 'wb') as f:
                 dump(test, f)
-            with open('/home/nadia/work/doubles_true/{}doubles.pickle'.format(max(NUMBER)), 'wb') as f:
+            with open('/home/nadia/new/doubles_false/{}doubles.pickle'.format(max(NUMBER)), 'wb') as f:
                 dump(doubles, f)
             logger.info(f" train : {(max(NUMBER3)-1)*1000 + len(train)},  test : {(max(NUMBER2)-1)*1000 + len(test)},"
                         f" doubles : {(max(NUMBER)-1)*1000 + len(doubles)}")
             train.clear()
             test.clear()
             doubles.clear()
-print('train true files:', max(NUMBER3), ' test true files:', max(NUMBER2),
+print('train false files:', max(NUMBER3), ' test false files:', max(NUMBER2),
       'doubles files:', max(NUMBER))
 f = sig_train.intersection(sig_test)
 print('Doubles', len(f))
-with open('/home/nadia/work/sig_train', 'wb') as f:
+with open('/home/nadia/new/sig_train.pickle', 'wb') as f:
     dump(sig_train, f)
-with open('/home/nadia/work/sig_test', 'wb') as f:
+with open('/home/nadia/new/sig_test.pickle', 'wb') as f:
     dump(sig_test, f)

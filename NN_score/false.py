@@ -77,7 +77,4 @@ print('train false files:', max(NUMBER3), ' test false files:', max(NUMBER2),
       'doubles false files:', max(NUMBER))
 f = sig_train.intersection(sig_test)
 print('Doubles', len(f))
-with open('/home/nadia/work/sig_train', 'wb') as f:
-    dump(sig_train, f)
-with open('/home/nadia/work/sig_test', 'wb') as f:
-    dump(sig_test, f)
+
